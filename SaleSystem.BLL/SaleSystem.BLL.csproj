@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FirebaseAuthentication.net" Version="3.7.2" />
+    <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
+    <PackageReference Include="MailKit" Version="3.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SaleSystem.Common\SaleSystem.Common.csproj" />
+    <ProjectReference Include="..\SaleSystem.DAL\SaleSystem.DAL.csproj" />
+    <ProjectReference Include="..\SaleSystem.Entity\SaleSystem.Entity.csproj" />
+  </ItemGroup>
+
+</Project>
