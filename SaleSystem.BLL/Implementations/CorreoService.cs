@@ -15,6 +15,47 @@ namespace SaleSystem.BLL.Implementations
             _configuration = Configuration;
         }
 
+        public async Task<GenericResponse<object>> EnviarCorreoAsync(string to, string subject, string body)
+        {
+            try
+            {
+                string DisplayName = _configuration["Mail:DisplayName"];
+                string from = _configuration["Mail:From"];
+                string smtp = _configuration["Mail:Smtp"];
+                string port = _configuration["Mail:Port"];
+                string password = _configuration["Mail:Password"];
+
+                MimeMessage message = new MimeMessage();
+                message.From.Add(new MailboxAddress(DisplayName, from));
+                message.To.Add(new MailboxAddress("Master", to));
+                message.Subject = subject;
+                BodyBuilder bodyBuilder = new BodyBuilder
+                {
+                    HtmlBody = body
+                };
+                message.Body = bodyBuilder.ToMessageBody();
+
+                using (SmtpClient client = new SmtpClient())
+                {
+                    client.Connect(smtp, int.Parse(port), false);
+                    client.Authenticate(from, password);
+                   await client.SendAsync(message);
+                    client.Disconnect(true);
+                }
+
+                return new GenericResponse<object> { IsSuccess = true };
+            }
+            catch (Exception ex)
+            {
+                return new GenericResponse<object>
+                {
+                    IsSuccess = false,
+                    ErrorMessage = ex.Message,
+                    DirectObject = ex
+                };
+            }
+        }
+
         public GenericResponse<object> SendMail(string to, string subject, string body)
         {
             try

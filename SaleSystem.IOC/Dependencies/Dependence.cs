@@ -21,6 +21,7 @@ namespace SaleSystem.IOC.Dependencies
             services.AddScoped<IVentaRepository, VentaRepository>();
 
             services.AddScoped<ICategoriaService, CategoriaService>();
+            services.AddScoped<IProductoService, ProductoService>();
             services.AddScoped<IRolService, RolService>();
 
             services.AddScoped<IUtilidadesService, UtilidadesService>();
